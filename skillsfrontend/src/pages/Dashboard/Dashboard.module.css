@@ -1,0 +1,64 @@
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    background: #ffffff;
+    border-right: 1px solid #eee;
+    padding: 20px;
+}
+
+.profileBox {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* AVATAR */
+.avatarWrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    cursor: pointer;
+
+}
+
+.avatarWrapper:hover {
+    opacity: 0.8;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* 🔥 FIXES IMAGE ISSUE */
+    border: 3px solid #0d6efd;
+}
+
+/* sidebar items */
+.item {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    background: transparent;
+    text-align: left;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.item:hover {
+    background: #0d6efd;
+    color: white;
+}
+
+/* MAIN */
+.main {
+    flex: 1;
+    padding: 20px;
+    background: #f8f9fa;
+}

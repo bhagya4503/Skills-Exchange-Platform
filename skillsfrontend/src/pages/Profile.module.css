@@ -1,0 +1,94 @@
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* PROFILE CARD */
+.profileCard {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+/* AVATAR */
+.avatarWrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: auto;
+    cursor: pointer;
+
+}
+
+.avatarWrapper:hover {
+    opacity: 0.8;
+}
+
+.cameraIcon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: #0d6efd;
+    color: white;
+    border-radius: 50%;
+    padding: 6px;
+    font-size: 12px;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* 🔥 FIXES IMAGE ISSUE */
+    border: 3px solid #0d6efd;
+}
+
+/* upload button overlay */
+.uploadInput {
+    margin-top: 10px;
+}
+
+/* USER INFO */
+.name {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.email {
+    color: #777;
+    margin-bottom: 10px;
+}
+
+/* SKILLS */
+.skillsContainer {
+    margin-top: 10px;
+}
+
+.skill {
+    display: inline-block;
+    background: #0d6efd;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.skill:hover {
+    background: #dc3545;
+}
+
+/* FORM CARD */
+.formCard {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
