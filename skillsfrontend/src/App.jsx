@@ -7,6 +7,8 @@ import Matches from "./pages/Matches";
 import Requests from "./pages/Requests";
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import UserProfile from "./pages/UserProfile";
+import Messaging from "./pages/Messaging";
 
 
 function App() {
@@ -64,6 +66,23 @@ function App() {
               </PrivateRoute>
             }
           />
+
+          <Route
+            path="/user/:id"
+            element={
+              <PrivateRoute>
+                <UserProfile />
+              </PrivateRoute>
+            } />
+
+
+          <Route
+            path="/chat/:id"
+            element={
+              <PrivateRoute>
+                <Messaging />
+              </PrivateRoute>
+            } />
         </Routes>
       </div>
     </Router>

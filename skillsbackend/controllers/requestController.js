@@ -13,11 +13,7 @@ exports.sendRequest = async (req, res) => {
         });
 
         if (existing) {
-            return res.status(400).json({ message: "Request already exists between users" });
-        }
-
-        if (existing) {
-            return res.status(400).json({ message: "Request already sent" });
+            return res.status(400).json({ message: "Request already exists" });
         }
         if (toUserId === req.user._id.toString()) {
             return res.status(400).json({ message: "You cannot send request to yourself" });
@@ -61,9 +57,35 @@ exports.respondRequest = async (req, res) => {
     res.json(request);
 };
 
+// exports.getSentRequests = async (req, res) => {
+//     const requests = await Request.find({ fromUser: req.user._id })
+//         .populate("toUser", "name email skillsHave");
+
+//     res.json(requests);
+// };
+
 exports.getSentRequests = async (req, res) => {
     const requests = await Request.find({ fromUser: req.user._id })
         .populate("toUser", "name email skillsHave");
 
     res.json(requests);
+};
+
+// ✅ Get My Connections
+exports.getConnections = async (req, res) => {
+    try {
+        const connections = await Request.find({
+            $or: [
+                { fromUser: req.user._id },
+                { toUser: req.user._id },
+            ],
+            status: "accepted",
+        })
+            .populate("fromUser", "name email skillsHave avatar")
+            .populate("toUser", "name email skillsHave avatar");
+
+        res.json(connections);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 };

@@ -3,6 +3,7 @@ import API from "../services/api";
 
 function Matches() {
     const [matches, setMatches] = useState([]);
+    const [sentIds, setSentIds] = useState([]);
 
     useEffect(() => {
         const fetchMatches = async () => {
@@ -13,12 +14,25 @@ function Matches() {
         fetchMatches();
     }, []);
 
+
+
+    // const handleConnect = async (userId) => {
+    //     try {
+    //         await API.post("/requests/send", { toUserId: userId });
+    //         alert("Request sent");
+    //     } catch (error) {
+    //         alert("Error sending request");
+    //     }
+    // };
+
     const handleConnect = async (userId) => {
         try {
             await API.post("/requests/send", { toUserId: userId });
-            alert("Request sent");
+
+            setSentIds((prev) => [...prev, userId]); // ✅ update UI
+
         } catch (error) {
-            alert("Error sending request");
+            alert(error.response?.data?.message || "Error sending request");
         }
     };
 
@@ -45,11 +59,18 @@ function Matches() {
                                 {user.skillsWant.join(", ")}
                             </p>
                             <p><strong>Availability:</strong> {user?.availability}</p>
-                            <button
+                            {/* <button
                                 className="btn btn-primary w-100"
                                 onClick={() => handleConnect(user._id)}
                             >
                                 Connect
+                            </button> */}
+                            <button
+                                className="btn btn-primary w-100"
+                                onClick={() => handleConnect(user._id)}
+                                disabled={sentIds.includes(user._id)}
+                            >
+                                {sentIds.includes(user._id) ? "Requested" : "Connect"}
                             </button>
                         </div>
                     </div>

@@ -55,11 +55,15 @@ function Navbar() {
                         </li>
 
                         <li className="nav-item">
-                            <NavLink to="/matches" className={styles.link}>
-                                Browse Connections
+                            <NavLink to="/Howitworks" className={styles.link}>
+                                How it works
                             </NavLink>
                         </li>
-
+                        <li className="nav-item">
+                            <NavLink to="/WhatOurCommunitySays" className={styles.link}>
+                                What Our Community Says
+                            </NavLink>
+                        </li>
                         {user && (
                             <>
                                 <li className="nav-item">
@@ -68,7 +72,7 @@ function Navbar() {
                                     </NavLink>
                                 </li>
 
-                                <li className="nav-item">
+                                {/* <li className="nav-item">
                                     <NavLink to="/requests" className={styles.link}>
                                         Requests
                                     </NavLink>
@@ -77,7 +81,7 @@ function Navbar() {
                                     <NavLink to="/matches" className={styles.link}>
                                         Match
                                     </NavLink>
-                                </li>
+                                </li> */}
                             </>
                         )}
 

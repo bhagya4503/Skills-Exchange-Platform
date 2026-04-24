@@ -3,14 +3,27 @@ import API from "../services/api";
 
 function Requests() {
     const [requests, setRequests] = useState([]);
-
+    const [sentRequests, setSentRequests] = useState([]);
     useEffect(() => {
         const fetchRequests = async () => {
             const { data } = await API.get("/requests/received");
-            setRequests(data);
+            // setRequests(data);
+            setRequests(data.filter((req) => req.status === "pending"));
         };
 
         fetchRequests();
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const received = await API.get("/requests/received");
+            const sent = await API.get("/requests/sent");
+
+            setRequests(received.data.filter((r) => r.status === "pending"));
+            setSentRequests(sent.data);
+        };
+
+        fetchData();
     }, []);
 
     const handleResponse = async (requestId, action) => {
@@ -76,6 +89,31 @@ function Requests() {
                     </div>
                 ))}
             </div>
+            <h4 className="mt-5">Your Requests Status</h4>
+
+            {sentRequests.map((req) => (
+                <div key={req._id} className="card p-2 mb-2">
+                    <p>
+                        You sent request to <strong>{req.toUser.name}</strong>
+                    </p>
+
+                    {req.status === "accepted" && (
+                        <p className="text-success">
+                            ✅ {req.toUser.name} accepted your request
+                        </p>
+                    )}
+
+                    {req.status === "rejected" && (
+                        <p className="text-danger">
+                            ❌ {req.toUser.name} rejected your request
+                        </p>
+                    )}
+
+                    {req.status === "pending" && (
+                        <p className="text-warning">⏳ Pending</p>
+                    )}
+                </div>
+            ))}
         </div>
     );
 }

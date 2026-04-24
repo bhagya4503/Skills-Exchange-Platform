@@ -27,16 +27,38 @@ function Profile() {
         setAvatar(data.avatar || "");
     };
 
-    const removeSkill = (type, skill) => {
+    // const removeSkill = (type, skill) => {
+    //     if (type === "have") {
+    //         setUser({
+    //             ...user,
+    //             skillsHave: user.skillsHave.filter((s) => s !== skill),
+    //         });
+    //     } else {
+    //         setUser({
+    //             ...user,
+    //             skillsWant: user.skillsWant.filter((s) => s !== skill),
+    //         });
+    //     }
+    // };
+
+    const removeSkill = async (type, skill) => {
+        let updatedSkills;
+
         if (type === "have") {
-            setUser({
+            updatedSkills = user.skillsHave.filter((s) => s !== skill);
+            setUser({ ...user, skillsHave: updatedSkills });
+
+            await API.put("/users/update", {
                 ...user,
-                skillsHave: user.skillsHave.filter((s) => s !== skill),
+                skillsHave: updatedSkills,
             });
         } else {
-            setUser({
+            updatedSkills = user.skillsWant.filter((s) => s !== skill);
+            setUser({ ...user, skillsWant: updatedSkills });
+
+            await API.put("/users/update", {
                 ...user,
-                skillsWant: user.skillsWant.filter((s) => s !== skill),
+                skillsWant: updatedSkills,
             });
         }
     };
@@ -80,14 +102,33 @@ function Profile() {
         //     availability: form.availability || user.availability,
         //     avatar: avatar,
         // };
+        // const updatedData = {
+        //     skillsHave: user.skillsHave,
+        //     skillsWant: user.skillsWant,
+        //     bio: form.bio || user.bio,
+        //     availability: form.availability || user.availability,
+        //     avatar: avatar,
+        // };
+
         const updatedData = {
-            skillsHave: user.skillsHave,
-            skillsWant: user.skillsWant,
+            skillsHave: [
+                ...user.skillsHave,
+                ...form.skillsHave
+                    .split(",")
+                    .map((s) => s.trim())
+                    .filter((s) => s && !user.skillsHave.includes(s)),
+            ],
+            skillsWant: [
+                ...user.skillsWant,
+                ...form.skillsWant
+                    .split(",")
+                    .map((s) => s.trim())
+                    .filter((s) => s && !user.skillsWant.includes(s)),
+            ],
             bio: form.bio || user.bio,
             availability: form.availability || user.availability,
             avatar: avatar,
         };
-
 
         const { data } = await API.put("/users/update", updatedData);
 
